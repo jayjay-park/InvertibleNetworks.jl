@@ -6,11 +6,11 @@
 
 Building blocks for invertible neural networks in the [Julia] programming language.
 
-## Overview
+## 🎯 Overview
 
 InvertibleNetworks.jl provides memory-efficient building blocks for invertible neural networks with hand-derived gradients, Jacobians, and log-determinants. The package is designed for high-performance scientific computing and machine learning applications.
 
-### Key Features
+### ✨ Key Features
 
 - **Memory Efficient**: Hand-derived gradients, Jacobians J, and log|J| for optimal memory usage
 - **Flux Integration**: Seamless integration with Flux.jl for automatic differentiation
@@ -18,22 +18,7 @@ InvertibleNetworks.jl provides memory-efficient building blocks for invertible n
 - **GPU Support**: Full GPU support via CuArray
 - **Comprehensive Examples**: Various examples of invertible neural networks, normalizing flows, variational inference, and uncertainty quantification
 
-## Installation
-
-InvertibleNetworks is registered and can be added like any standard Julia package:
-
-```julia
-using Pkg
-Pkg.add("InvertibleNetworks")
-```
-
-Or from the REPL:
-
-```julia
-] add InvertibleNetworks
-```
-
-## Quick Start
+## 🚀 Quick Start
 
 ### Basic Usage
 
@@ -67,17 +52,17 @@ AN = ActNorm(10; logdet=true) |> gpu
 Y, logdet = AN.forward(X)
 ```
 
-## Building Blocks
+## 🧱 Building Blocks
 
 ### Core Layers
 
-- **ActNorm**: Activation normalization (Kingma and Dhariwal, 2018)
-- **Conv1x1**: 1x1 Convolutions using Householder transformations
-- **ResidualBlock**: Invertible residual blocks
-- **CouplingLayerGlow**: Invertible coupling layer from Dinh et al. (2017)
-- **CouplingLayerHINT**: Invertible recursive coupling layer HINT from Kruse et al. (2020)
-- **CouplingLayerHyperbolic**: Invertible hyperbolic layer from Lensink et al. (2019)
-- **CouplingLayerIRIM**: Invertible coupling layer from Putzky and Welling (2019)
+- **ActNorm**: Activation normalization (Kingma and Dhariwal, 2018) ([example](https://github.com/slimgroup/InvertibleNetworks.jl/tree/master/examples/layers/layer_actnorm.jl))
+- **Conv1x1**: 1x1 Convolutions using Householder transformations ([example](https://github.com/slimgroup/InvertibleNetworks.jl/tree/master/examples/layers/layer_convolution_1x1.jl))
+- **ResidualBlock**: Invertible residual blocks ([example](https://github.com/slimgroup/InvertibleNetworks.jl/tree/master/examples/layers/layer_residual_block.jl))
+- **CouplingLayerGlow**: Invertible coupling layer from Dinh et al. (2017) ([example](https://github.com/slimgroup/InvertibleNetworks.jl/tree/master/examples/layers/layer_coupling_glow.jl))
+- **CouplingLayerHINT**: Invertible recursive coupling layer HINT from Kruse et al. (2020) ([example](https://github.com/slimgroup/InvertibleNetworks.jl/tree/master/examples/layers/layer_coupling_hint.jl))
+- **CouplingLayerHyperbolic**: Invertible hyperbolic layer from Lensink et al. (2019) ([example](https://github.com/slimgroup/InvertibleNetworks.jl/tree/master/examples/layers/layer_coupling_hyperbolic.jl))
+- **CouplingLayerIRIM**: Invertible coupling layer from Putzky and Welling (2019) ([example](https://github.com/slimgroup/InvertibleNetworks.jl/tree/master/examples/layers/layer_coupling_irim.jl))
 
 ### Activation Functions
 
@@ -90,47 +75,25 @@ Y, logdet = AN.forward(X)
 
 ### Utilities
 
-- **Parameter Management**: Efficient parameter handling with gradients
-- **Objective Functions**: Mean squared error, log-likelihood
-- **Dimensionality Operations**: Squeeze/unsqueeze, split/cat
 - **Jacobian Computation**: Hand-derived Jacobians for memory efficiency
+- **Wavelet Transform**
 
-## Network Architectures
+## 🌐 Network Architectures
 
 ### Pre-built Networks
 
-- **NetworkGlow**: Generative flow with invertible 1x1 convolutions
+- **NetworkGlow**: Generative flow with invertible 1x1 convolutions ([generic example](https://github.com/slimgroup/InvertibleNetworks.jl/tree/master/examples/networks/network_glow.jl), [source](https://github.com/slimgroup/InvertibleNetworks.jl/tree/master/src/networks/invertible_network_glow.jl))
 - **NetworkHINT**: Multi-scale HINT networks
 - **NetworkHyperbolic**: Hyperbolic networks
-- **NetworkIRIM**: Invertible recurrent inference machines
+- **NetworkIRIM**: Invertible recurrent inference machines (Putzky and Welling, 2019) ([generic example](https://github.com/slimgroup/InvertibleNetworks.jl/tree/master/examples/networks/network_irim.jl))
 - **NetworkConditionalGlow**: Conditional Glow networks
 - **NetworkConditionalHINT**: Conditional HINT networks
 
-### Example: Creating a Glow Network
 
-```julia
-using InvertibleNetworks, Flux
+## 🔍 Uncertainty-aware Image Reconstruction
 
-# Network parameters
-n_in = 3      # Input channels
-n_hidden = 64 # Hidden dimensions
-L = 4         # Number of scales
-K = 2         # Number of flow steps per scale
+Due to its memory scaling InvertibleNetworks.jl, has been particularily successful at Bayesian posterior sampling with simulation-based inference. To get started with this application refer to a simple example ([Conditional sampling for MNSIT inpainting](https://github.com/slimgroup/InvertibleNetworks.jl/tree/master/examples/applications/conditional_sampling/amortized_glow_mnist_inpainting.jl)) but feel free to modify this script for your application and please reach out to us for help. 
 
-# Create Glow network
-G = NetworkGlow(n_in, n_hidden, L, K)
-
-# Forward pass
-X = randn(Float32, 64, 64, n_in, 4)
-Y, logdet = G.forward(X)
-
-# Inverse pass
-X_reconstructed = G.inverse(Y)
-```
-
-## Uncertainty-aware Image Reconstruction
-
-InvertibleNetworks.jl has been particularly successful at Bayesian posterior sampling with simulation-based inference due to its memory scaling. 
 
 ### Example: MNIST Inpainting
 
@@ -141,34 +104,13 @@ InvertibleNetworks.jl has been particularly successful at Bayesian posterior sam
 
 ![mnist_sampling_cond](docs/src/figures/mnist_sampling_cond.png)
 
-## Examples
-
-The package includes comprehensive examples organized by application:
-
-### Applications
-- **Conditional Sampling**: MNIST inpainting, banana distribution sampling
-- **Non-conditional Sampling**: Banana distribution, seismic data
-- **Denoising**: HINT-based denoising
-
-### Benchmarks
-- **Performance**: Memory usage comparisons
-- **Differentiation**: ForwardDiff vs ManualDiff comparisons
-
-### Layer Examples
-- **Individual Layers**: Detailed examples for each layer type
-- **Network Composition**: How to combine layers into networks
-
-### Network Examples
-- **Complete Networks**: End-to-end examples for each network type
-- **Training**: Examples with Flux integration
-
-## Documentation
+## 📖 Documentation
 
 - **API Documentation**: [Stable](https://slimgroup.github.io/InvertibleNetworks.jl/stable/) | [Development](https://slimgroup.github.io/InvertibleNetworks.jl/dev/)
 - **Examples**: See the `examples/` directory for comprehensive usage examples
 - **Tests**: The `test/` directory contains extensive unit tests
 
-## Contributing
+## 🤝 Contributing
 
 We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
@@ -186,7 +128,7 @@ using Pkg
 Pkg.test("InvertibleNetworks")
 ```
 
-## Citation
+## 📄 Citation
 
 If you use InvertibleNetworks.jl in your research, please cite:
 
@@ -205,30 +147,30 @@ If you use InvertibleNetworks.jl in your research, please cite:
 }
 ```
 
-## Related Publications
+## 📚 Related Publications
 
 The following publications use InvertibleNetworks.jl:
 
-- **["Reliable amortized variational inference with physics-based latent distribution correction"]**
+- **Reliable amortized variational inference with physics-based latent distribution correction**
     - Paper: [https://arxiv.org/abs/2207.11640](https://arxiv.org/abs/2207.11640)
     - Code: [ReliableAVI.jl]
 
-- **["Learning by example: fast reliability-aware seismic imaging with normalizing flows"]**
+- **Learning by example: fast reliability-aware seismic imaging with normalizing flows**
     - Paper: [https://arxiv.org/abs/2104.06255](https://arxiv.org/abs/2104.06255)
     - Code: [ReliabilityAwareImaging.jl]
 
-- **["Enabling uncertainty quantification for seismic data pre-processing using normalizing flows"]**
+- **Enabling uncertainty quantification for seismic data pre-processing using normalizing flows**
     - Paper: [https://slim.gatech.edu/Publications/Public/Conferences/SEG/2021/kumar2021SEGeuq/kumar2021SEGeuq.pdf]
     - Code: [WavefieldRecoveryUQ.jl]
 
-- **["Preconditioned training of normalizing flows for variational inference in inverse problems"]**
+- **Preconditioned training of normalizing flows for variational inference in inverse problems**
     - Paper: [https://arxiv.org/abs/2101.03709](https://arxiv.org/abs/2101.03709)
     - Code: [FastApproximateInference.jl]
 
-- **["Parameterizing uncertainty by deep invertible networks, an application to reservoir characterization"]**
+- **Parameterizing uncertainty by deep invertible networks, an application to reservoir characterization**
     - Paper: [https://arxiv.org/abs/2004.07871](https://arxiv.org/abs/2004.07871)
 
-## Authors
+## 👥 Authors
 
 - **Rafael Orozco** - Georgia Institute of Technology [rorozco@gatech.edu]
 - **Philipp Witte** - Georgia Institute of Technology (now Microsoft)
@@ -236,14 +178,14 @@ The following publications use InvertibleNetworks.jl:
 - **Mathias Louboutin** - Georgia Institute of Technology
 - **Ali Siahkoohi** - Georgia Institute of Technology
 
-## Acknowledgments
+## 🙏 Acknowledgments
 
 This package uses functions from:
 - [NNlib.jl](https://github.com/FluxML/NNlib.jl)
 - [Flux.jl](https://github.com/FluxML/Flux.jl)
 - [Wavelets.jl](https://github.com/JuliaDSP/Wavelets.jl)
 
-## License
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
