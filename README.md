@@ -4,7 +4,6 @@
 |:-----------------:|:-----------------:|:----------------:|
 |[![](https://img.shields.io/badge/docs-stable-blue.svg)](https://slimgroup.github.io/InvertibleNetworks.jl/stable/) [![](https://img.shields.io/badge/docs-dev-blue.svg)](https://slimgroup.github.io/InvertibleNetworks.jl/dev/)| [![CI](https://github.com/slimgroup/InvertibleNetworks.jl/actions/workflows/runtests.yml/badge.svg)](https://github.com/slimgroup/InvertibleNetworks.jl/actions/workflows/runtests.yml)|  [![DOI](https://joss.theoj.org/papers/10.21105/joss.06554/status.svg)](https://doi.org/10.21105/joss.06554)
 
-Building blocks for invertible neural networks in the [Julia] programming language.
 
 ## 🎯 Overview
 
@@ -76,7 +75,9 @@ Y, logdet = AN.forward(X)
 ### Utilities
 
 - **Jacobian Computation**: Hand-derived Jacobians for memory efficiency
+- **Dimensionality Manipulation**: squeeze/unsqueeze (column, patch, checkerboard), split/cat
 - **Wavelet Transform**
+
 
 ## 🌐 Network Architectures
 
@@ -103,6 +104,14 @@ Due to its memory scaling InvertibleNetworks.jl, has been particularily successf
 ```
 
 ![mnist_sampling_cond](docs/src/figures/mnist_sampling_cond.png)
+
+### Other Examples
+
+- **Invertible recurrent inference machines** (Putzky and Welling, 2019) ([generic example](https://github.com/slimgroup/InvertibleNetworks.jl/tree/master/examples/networks/network_irim.jl))
+
+- **Generative models with maximum likelihood** via the change of variable formula ([example](https://github.com/slimgroup/InvertibleNetworks.jl/tree/master/examples/applications/application_glow_banana_dist.jl))
+
+- **Glow**: Generative flow with invertible 1x1 convolutions (Kingma and Dhariwal, 2018) ([generic example](https://github.com/slimgroup/InvertibleNetworks.jl/tree/master/examples/networks/network_glow.jl), [source](https://github.com/slimgroup/InvertibleNetworks.jl/tree/master/src/networks/invertible_network_glow.jl))
 
 ## 📖 Documentation
 
