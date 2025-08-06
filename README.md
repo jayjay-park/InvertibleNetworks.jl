@@ -14,10 +14,32 @@ InvertibleNetworks.jl provides memory-efficient building blocks for invertible n
 - **Memory Efficient**: Hand-derived gradients, Jacobians J, and log|J| for optimal memory usage
 - **Flux Integration**: Seamless integration with Flux.jl for automatic differentiation
 - **AD Support**: Support for [Zygote] and [ChainRules] automatic differentiation
-- **GPU Support**: Full GPU support via CuArray
+- **GPU Support**: Nvidia GPU support via CuArray
 - **Comprehensive Examples**: Various examples of invertible neural networks, normalizing flows, variational inference, and uncertainty quantification
 
 ## 🚀 Quick Start
+
+### Installation
+
+In Julia REPL,
+
+```julia
+] add InvertibleNetworks
+```
+
+Or
+
+```julia
+using Pkg
+Pkg.develop("InvertibleNetworks")
+```
+
+### Running Tests
+
+```julia
+using Pkg
+Pkg.test("InvertibleNetworks")
+```
 
 ### Basic Usage
 
@@ -123,19 +145,6 @@ Due to its memory scaling InvertibleNetworks.jl, has been particularily successf
 
 We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-### Development Setup
-
-```julia
-using Pkg
-Pkg.develop("InvertibleNetworks")
-```
-
-### Running Tests
-
-```julia
-using Pkg
-Pkg.test("InvertibleNetworks")
-```
 
 ## 📄 Citation
 
